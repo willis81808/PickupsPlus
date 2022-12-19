@@ -1,0 +1,7 @@
+ManifestFileVersion: 0
+CRC: 1880572107
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: pickupsplus
+      Dependencies: {}

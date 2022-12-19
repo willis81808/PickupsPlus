@@ -1,0 +1,77 @@
+ManifestFileVersion: 0
+CRC: 3602692901
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: c2f768aa67a05db8d3e02b993b492e77
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 791b121562ed711c13e66715b41398c8
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 82
+  Script: {instanceID: 0}
+- Class: 83
+  Script: {instanceID: 0}
+- Class: 91
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
+- Class: 108
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: -405508275, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: -1283557461, guid: cc8a520cdc1a71048ac77742d0ea6366, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: fe31c175710fb8349879983400f342cf, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 2b82cf72c52233d40aae3ba9498020c6, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 41560e21aa0f7434e93683732d71bdc9, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: a04275a72507f1c4b9ccc4db699873c3, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 9a03c17549b5eb14aa34e14075829ea7, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 97925879e87e49a438993d11da3e30a4, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+- Class: 212
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+- Class: 222
+  Script: {instanceID: 0}
+- Class: 224
+  Script: {instanceID: 0}
+- Class: 225
+  Script: {instanceID: 0}
+Assets:
+- Assets/PickupsPlus/Pickups/Active Effects Bar.prefab
+- Assets/PickupsPlus/Pickups/Shield Pickup/Shield Pickup.prefab
+- Assets/PickupsPlus/Pickups/Speed Pickup/Speed Pickup.prefab
+- Assets/PickupsPlus/Pickups/Health Pickup/Health Pickup.prefab
+- Assets/PickupsPlus/Pickups/Ammo Pickup/Ammo Pickup.prefab
+- Assets/PickupsPlus/Pickups/Damage Pickup/Damage Pickup.prefab
+Dependencies: []
