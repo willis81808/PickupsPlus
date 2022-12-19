@@ -19,8 +19,6 @@ namespace PickupsPlus
 
         protected override void OnPickup(Player player)
         {
-            UnityEngine.Debug.Log($"Ammo Pickup touched by: {player.name}");
-
             var buff = StatManager.Apply(player, ammoBuff);
             Unbound.Instance.ExecuteAfterSeconds(duration, () =>
             {

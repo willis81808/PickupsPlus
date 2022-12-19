@@ -19,7 +19,6 @@ namespace PickupsPlus
 
         protected override void OnPickup(Player player)
         {
-            UnityEngine.Debug.Log($"Damage Pickup touched by: {player.name}");
             var buff = StatManager.Apply(player, speedBuff);
             Unbound.Instance.ExecuteAfterSeconds(duration, () =>
             {

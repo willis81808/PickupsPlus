@@ -11,8 +11,8 @@ namespace PickupsPlus
     {
         protected override void OnPickup(Player player)
         {
-            UnityEngine.Debug.Log($"Health Pickup touched by: {player.name}");
-            player.data.healthHandler.Heal(float.MaxValue);
+            var data = player.data;
+            data.healthHandler.Heal(data.maxHealth - data.health);
         }
     }
 }

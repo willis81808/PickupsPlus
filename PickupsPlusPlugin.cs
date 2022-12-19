@@ -21,7 +21,7 @@ namespace PickupsPlus
     {
         private const string ModId = "com.willis.rounds.pickupsplus";
         private const string ModName = "Pickups Plus";
-        private const string ModVersion = "0.0.1";
+        private const string ModVersion = "0.0.2";
         private const string CompatabilityModName = "PickupsPlus";
 
         private static List<GameObject> pickups = new List<GameObject>();

@@ -11,8 +11,6 @@ namespace PickupsPlus
     {
         protected override void OnPickup(Player player)
         {
-            UnityEngine.Debug.Log($"Shield Pickup touched by: {player.name}");
-
             var block = player.data.block;
             block.counter = block.cooldown;
         }

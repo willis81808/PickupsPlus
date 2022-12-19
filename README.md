@@ -16,5 +16,8 @@ Enhance your matches with pickups!
 
 # Patch Notes
 
+### 0.0.2
+- Health pickups now heal exactly the player's missing health, instead of `float.MaxValue`
+
 ### 0.0.1
 - Initial release
