@@ -12,7 +12,7 @@ namespace PickupsPlus
         protected override void OnPickup(Player player)
         {
             var block = player.data.block;
-            block.counter = block.cooldown;
+            block.counter = block.Cooldown();
         }
     }
 }

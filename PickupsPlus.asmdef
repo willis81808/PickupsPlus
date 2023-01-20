@@ -3,7 +3,8 @@
     "references": [
         "UnboundLib",
         "ModdingUtils",
-        "ModsPlus"
+        "ModsPlus",
+        "Unity.TextMeshPro"
     ],
     "optionalUnityReferences": [],
     "includePlatforms": [],

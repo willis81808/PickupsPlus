@@ -6,8 +6,9 @@ using BepInEx;
 using UnboundLib.Cards;
 using PickupsPlus.Cards;
 using Photon.Pun;
-using UnboundLib.GameModes;
 using UnboundLib;
+using UnboundLib.GameModes;
+using UnboundLib.Utils.UI;
 
 namespace PickupsPlus
 {
@@ -21,8 +22,10 @@ namespace PickupsPlus
     {
         private const string ModId = "com.willis.rounds.pickupsplus";
         private const string ModName = "Pickups Plus";
-        private const string ModVersion = "0.0.2";
-        private const string CompatabilityModName = "PickupsPlus";
+        private const string ModVersion = "0.1.0";
+        internal const string CompatabilityModName = "PickupsPlus";
+
+        internal static PickupsPlusPlugin Instance { get; private set; }
 
         private static List<GameObject> pickups = new List<GameObject>();
 
@@ -34,23 +37,45 @@ namespace PickupsPlus
 
         private void Awake()
         {
+            Instance = this;
+
             floorMask = LayerMask.GetMask(new string[] { "Default", "IgnorePlayer" });
             playerMask = LayerMask.GetMask(new string[] { "Player" });
         }
 
         private void Start()
         {
-            //CustomCard.BuildCard<PickupsTestCard>();
-
             foreach (var pickup in Assets.Pickups)
             {
                 PhotonNetwork.PrefabPool.RegisterPrefab(pickup.name, pickup);
+                PickupsConfiguration.AddPickup(pickup);
             }
+
+            Unbound.RegisterMenu(ModName, null, SetupMenu, showInPauseMenu: true);
+
+            //CustomCard.BuildCard<PickupsTestCard>();
 
             activeEffectsBar = Instantiate(Assets.ActiveEffectsBar, Unbound.Instance.canvas.transform);
 
             GameModeManager.AddHook(GameModeHooks.HookBattleStart, OnBattleStart);
             GameModeManager.AddHook(GameModeHooks.HookPointEnd, OnBattleEnd);
+        }
+
+        private void SetupMenu(GameObject menu)
+        {
+            foreach (var pickup in PickupsConfiguration.GetAllPickups())
+            {
+                MenuHandler.CreateText(pickup.Prefab.name, menu, out var _);
+                MenuHandler.CreateToggle(pickup.Enabled, "Enabled", menu, value =>
+                {
+                    pickup.Enabled = value;
+                }, fontSize: 30);
+                MenuHandler.CreateSlider("Weight", menu, 30, 0f, 1f, pickup.Weight, value =>
+                {
+                    pickup.Weight = value;
+                }, out var _);
+                MenuHandler.CreateText("  ", menu, out var _);
+            }
         }
         
         public IEnumerator OnBattleStart(IGameModeHandler gameModeHandler)
@@ -90,7 +115,7 @@ namespace PickupsPlus
             pickups.Clear();
         }
 
-        private IEnumerator SpawnPickups()
+        internal IEnumerator SpawnPickups()
         {
             while (true)
             {
@@ -101,10 +126,12 @@ namespace PickupsPlus
                 if (spawnPoints.Length > 0)
                 {
                     var point = spawnPoints.GetRandom<Vector3>();
-                    var pickup = Assets.Pickups.GetRandom<GameObject>();
 
-                    var spawned = PhotonNetwork.Instantiate(pickup.name, point, pickup.transform.rotation);
-                    pickups.Add(spawned);
+                    if (PickupsConfiguration.GetRandomPickup() is GameObject pickup)
+                    {
+                        var spawned = PhotonNetwork.Instantiate(pickup.name, point, pickup.transform.rotation);
+                        pickups.Add(spawned);
+                    }
                 }
 
                 yield return new WaitForSeconds(5);
