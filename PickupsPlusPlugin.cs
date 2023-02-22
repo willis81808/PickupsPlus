@@ -9,6 +9,7 @@ using Photon.Pun;
 using UnboundLib;
 using UnboundLib.GameModes;
 using UnboundLib.Utils.UI;
+using BepInEx.Configuration;
 
 namespace PickupsPlus
 {
@@ -22,10 +23,12 @@ namespace PickupsPlus
     {
         private const string ModId = "com.willis.rounds.pickupsplus";
         private const string ModName = "Pickups Plus";
-        private const string ModVersion = "0.1.0";
+        private const string ModVersion = "1.0.0";
         internal const string CompatabilityModName = "PickupsPlus";
 
         internal static PickupsPlusPlugin Instance { get; private set; }
+
+        private static ConfigEntry<float> spawnRate;
 
         private static List<GameObject> pickups = new List<GameObject>();
 
@@ -45,6 +48,8 @@ namespace PickupsPlus
 
         private void Start()
         {
+            spawnRate = Config.Bind(CompatabilityModName, "PickupsPlus_SpawnInterval", 5f, "Interval (in seconds) of time between pickup spawns");
+
             foreach (var pickup in Assets.Pickups)
             {
                 PhotonNetwork.PrefabPool.RegisterPrefab(pickup.name, pickup);
@@ -63,17 +68,26 @@ namespace PickupsPlus
 
         private void SetupMenu(GameObject menu)
         {
+            MenuHandler.CreateText("Pickup Spawn Interval", menu, out var _);
+            spawnRate.CreateSlider(menu, "Seconds", 1f, 30f);
+            MenuHandler.CreateText("  ", menu, out var _);
+
             foreach (var pickup in PickupsConfiguration.GetAllPickups())
             {
                 MenuHandler.CreateText(pickup.Prefab.name, menu, out var _);
+
                 MenuHandler.CreateToggle(pickup.Enabled, "Enabled", menu, value =>
                 {
                     pickup.Enabled = value;
                 }, fontSize: 30);
+
                 MenuHandler.CreateSlider("Weight", menu, 30, 0f, 1f, pickup.Weight, value =>
                 {
                     pickup.Weight = value;
                 }, out var _);
+
+                pickup.Prefab.GetComponent<Pickup>()?.SetupExtraMenuOptions(menu);
+
                 MenuHandler.CreateText("  ", menu, out var _);
             }
         }
@@ -134,7 +148,12 @@ namespace PickupsPlus
                     }
                 }
 
-                yield return new WaitForSeconds(5);
+                float waitCounter = 0;
+                yield return new WaitUntil(() =>
+                {
+                    waitCounter += TimeHandler.deltaTime;
+                    return waitCounter >= spawnRate.Value;
+                });
             }
         }
 

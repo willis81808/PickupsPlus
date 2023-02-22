@@ -75,6 +75,8 @@ namespace PickupsPlus
             Instantiate(pickupEffect, spawnPoint, pickupEffect.transform.rotation);
         }
 
+        public virtual void SetupExtraMenuOptions(GameObject menu) { }
+
         protected abstract void OnPickup(Player player);
     }
 }
